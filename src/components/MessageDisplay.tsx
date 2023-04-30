@@ -1,7 +1,7 @@
 const MessageDisplay = () => {
   return (
     <div className="message-display">
-      <p>X</p>
+      <p id="icon">X</p>
       <p>User</p>
       <p>message</p>
     </div>
