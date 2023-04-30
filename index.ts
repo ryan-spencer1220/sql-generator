@@ -27,6 +27,7 @@ app.post("/completions", async (req: Request, res: Response) => {
         },
       ],
     });
+    res.send(completion.data.choices[0].message);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
