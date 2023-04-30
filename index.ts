@@ -8,26 +8,24 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 
-const API_KEY: string = "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";
-
 const configuration = new Configuration({
-  apiKey: API_KEY,
+  apiKey: process.env.API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
 
 app.post("/completions", async (req: Request, res: Response) => {
   try {
-    const completion = await openai.createChatCompletion({
-      model: "gpt-3.5",
-      messages: [
-        {
-          role: "user",
-          content: "Create a SQL request to " + req.body.message,
-        },
-      ],
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: "How are you doing today?",
+      temperature: 0.7,
+      max_tokens: 256,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
     });
-    res.send(completion.data.choices[0].message);
+    res.send(response);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
